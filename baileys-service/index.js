@@ -22,7 +22,7 @@ app.use(express.json())
 axios.defaults.headers.common['Authorization'] = process.env.SECRET_KEY || 'botify-super-secret-key-2025'
 
 const groq     = new Groq({ apiKey: process.env.GROQ_API_KEY })
-const FLASK_URL = process.env.FLASK_URL || 'http://127.0.0.1:5000'
+const FLASK_URL = process.env.FLASK_URL || 'https://botifyplacements-production.up.railway.app'
 
 const connections    = {}
 const qrCodes        = {}
@@ -690,7 +690,7 @@ async function startConnection(userId, botConfig = {}) {
                 const orderHistoryKeywords = ['my orders', 'order history', 'past orders', 'my order', 'order status', 'where is my order']
                 if (orderHistoryKeywords.some(kw => textLower.includes(kw))) {
                     try {
-                        const FLASK_URL = process.env.FLASK_URL || 'http://127.0.0.1:5000'
+                        const FLASK_URL = process.env.FLASK_URL || 'https://botifyplacements-production.up.railway.app'
                         const phoneClean = from.replace('@s.whatsapp.net', '')
                         const ordersRes = await axios.get(`${FLASK_URL}/api/customer-orders/${userId}/${phoneClean}`, { timeout: 5000 })
                         const orders = ordersRes.data.orders || []
@@ -851,7 +851,7 @@ app.post('/send-bill/:userId', async (req, res) => {
     }
 
     try {
-        const FLASK_URL = process.env.FLASK_URL || 'http://127.0.0.1:5000'
+        const FLASK_URL = process.env.FLASK_URL || 'https://botifyplacements-production.up.railway.app'
         const billRes = await axios.get(`${FLASK_URL}/api/generate-bill/${order_id}`, {
             responseType: 'arraybuffer'
         })
