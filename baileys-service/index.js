@@ -1,4 +1,11 @@
-require('dotenv').config()
+require('dotenv').config({ path: require('path').join(__dirname, '.env') })
+
+console.log('=== STARTUP ENVIRONMENT VARIABLES ===')
+console.log('FLASK_URL in env:', process.env.FLASK_URL)
+console.log('PORT in env:', process.env.PORT)
+console.log('SECRET_KEY defined:', !!process.env.SECRET_KEY)
+console.log('GROQ_API_KEY defined:', !!process.env.GROQ_API_KEY)
+console.log('====================================')
 
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys')
 const express = require('express')
